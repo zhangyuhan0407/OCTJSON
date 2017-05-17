@@ -6,9 +6,10 @@
 //  Copyright © 2016 octopus. All rights reserved.
 //
 
+import Foundation
+
 
 public typealias JSON = Json
-
 
 
 public extension JSON {
@@ -147,9 +148,7 @@ public extension JSON {
 
 extension JSON {
     
-    
-    
-    var anyDictionary: [String: Any]? {
+    public var anyDictionary: [String: Any]? {
         guard case let .object(object) = self else { return nil }
         
         var dict = [String: Any]()
@@ -209,7 +208,7 @@ extension JSON {
     
     
     
-    var anyArray: [Any]? {
+    public var anyArray: [Any]? {
         guard case let .array(array) = self else { return nil }
         
         var ret = [Any]()
@@ -328,7 +327,7 @@ public extension Sequence where Iterator.Element: Any {
 
 
 
-public func isAnyArray(_ any: Any) -> Bool {
+func isAnyArray(_ any: Any) -> Bool {
     if any is [String] {
         return true
     } else if any is [Int] {
@@ -347,7 +346,7 @@ public func isAnyArray(_ any: Any) -> Bool {
 }
 
 
-public func isAnyDictionary(_ any: Any) -> Bool {
+func isAnyDictionary(_ any: Any) -> Bool {
     if any is [String: String] {
         return true
     } else if any is [String: Int] {
@@ -368,7 +367,7 @@ public func isAnyDictionary(_ any: Any) -> Bool {
 
 
 
-public func forEachArray(_ any: Any, block: ((_: Any) -> ())) {
+func forEachArray(_ any: Any, block: ((_: Any) -> ())) {
     if let any = any as? [String] {
         for s in any { block(s) }
     } else if let any = any as? [Int] {
@@ -386,7 +385,7 @@ public func forEachArray(_ any: Any, block: ((_: Any) -> ())) {
 
 
 
-public func forEachDictionary(_ any: Any, block: ((_ key: String, _: Any) -> ())) {
+func forEachDictionary(_ any: Any, block: ((_ key: String, _: Any) -> ())) {
     if let dict = any as? [String: String] {
         for (k, v) in dict { block(k, v) }
     } else if let dict = any as? [String: Int] {
@@ -520,11 +519,39 @@ extension String {
 
 
 
-
-
-//asasasassaassa
-
-
+//public extension JSON {
+//    
+//    public static func read(fromFile file: String) -> JSON? {
+//        
+//        guard let data = FileManager.default.contents(atPath: file) else {
+//            return nil
+//        }
+//        
+//        guard let s = String(data: data, encoding: String.Encoding.utf8) else {
+//            return nil
+//        }
+//        
+//        do {
+//            let json = try JSON.deserialize(s)
+//            return json
+//        } catch {
+//            return nil
+//        }
+//        
+//    }
+//    
+//    
+//    public mutating func update(value: Any, forKey key: String) {
+//        self[key] = JSON(value)
+//    }
+//    
+//    public mutating func add(value: Int, forKey key: String) {
+//        let count = self[key].int ?? 0
+//        self[key] = JSON(count + value)
+//    }
+//    
+//    
+//}
 
 
 
